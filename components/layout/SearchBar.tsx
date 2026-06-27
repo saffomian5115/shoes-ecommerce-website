@@ -101,7 +101,7 @@ export function SearchBar() {
           setIsOpen(true);
           setTimeout(() => inputRef.current?.focus(), 100);
         }}
-        className="flex items-center gap-2 rounded-full border border-input bg-background px-3 sm:px-4 py-2 text-sm text-muted-foreground transition-all hover:border-primary/50 hover:text-foreground hover:shadow-sm w-full lg:w-[36rem]"
+        className="flex items-center gap-2 rounded-full border border-input bg-background px-3 sm:px-4 py-2 text-sm text-muted-foreground transition-all hover:border-primary/50 hover:text-foreground hover:shadow-sm w-full"
         aria-label="Open search"
       >
         <Search className="h-4 w-4 shrink-0" />
@@ -114,7 +114,7 @@ export function SearchBar() {
   }
 
   return (
-    <div className="relative w-full lg:w-auto lg:max-w-[36rem]" ref={dropdownRef}>
+    <div className="relative w-full" ref={dropdownRef}>
       <div className="relative">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
