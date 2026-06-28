@@ -29,3 +29,20 @@ export type Category = {
   image: string;
   count: number;
 };
+
+export interface Testimonial {
+  name: string;
+  location: string;
+  rating: number;
+  comment: string;
+  avatar: string;
+  date: string;
+  verified: boolean;
+}
+
+export interface Brand {
+  name: string;
+  logo: string;
+  width: number;
+  height: number;
+}

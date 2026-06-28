@@ -1,15 +1,16 @@
-import type { Product, Category } from "@/types";
+import type { Product, Category, Testimonial, Brand } from "@/types";
 
 export const categories: Category[] = [
-  { name: "Running", slug: "running", image: "/running.jpg", count: 12 },
-  { name: "Casual", slug: "casual", image: "/casual.jpg", count: 8 },
-  { name: "Sports", slug: "sports", image: "/sports.jpg", count: 10 },
-  { name: "Sneakers", slug: "sneakers", image: "/sneakers.jpg", count: 15 },
-  { name: "Formal", slug: "formal", image: "/formal.jpg", count: 6 },
-  { name: "Training", slug: "training", image: "/training.jpg", count: 9 },
+  { name: "Men's", slug: "men", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80", count: 42 },
+  { name: "Women's", slug: "women", image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&q=80", count: 38 },
+  { name: "Kids", slug: "kids", image: "https://images.unsplash.com/photo-1595341888016-a392ef81b7de?w=400&q=80", count: 24 },
+  { name: "Sports", slug: "sports", image: "https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?w=400&q=80", count: 28 },
+  { name: "Formal", slug: "formal", image: "https://images.unsplash.com/photo-1614252235316-8c857f38b7f4?w=400&q=80", count: 32 },
+  { name: "Casual", slug: "casual", image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&q=80", count: 36 },
 ];
 
 export const products: Product[] = [
+  // ─── #1 Bestseller ───
   {
     _id: "1",
     name: "AirMax Pulse",
@@ -34,6 +35,7 @@ export const products: Product[] = [
     isBestSeller: true,
     inStock: true,
   },
+  // ─── #2 Bestseller ───
   {
     _id: "2",
     name: "CloudWalker Pro",
@@ -54,8 +56,10 @@ export const products: Product[] = [
     rating: 4.6,
     reviewCount: 183,
     isNew: true,
+    isBestSeller: true,
     inStock: true,
   },
+  // ─── #3 Bestseller ───
   {
     _id: "3",
     name: "StrideX Elite",
@@ -80,6 +84,7 @@ export const products: Product[] = [
     isBestSeller: true,
     inStock: true,
   },
+  // ─── #4 ───
   {
     _id: "4",
     name: "Urban Flex",
@@ -101,6 +106,7 @@ export const products: Product[] = [
     isBestSeller: true,
     inStock: true,
   },
+  // ─── #5 ───
   {
     _id: "5",
     name: "TrailBlazer Hiking",
@@ -122,8 +128,10 @@ export const products: Product[] = [
     rating: 4.7,
     reviewCount: 98,
     isNew: true,
+    isBestSeller: true,
     inStock: true,
   },
+  // ─── #6 ───
   {
     _id: "6",
     name: "Velocity Sprint",
@@ -143,8 +151,10 @@ export const products: Product[] = [
     ],
     rating: 4.4,
     reviewCount: 76,
+    isBestSeller: true,
     inStock: true,
   },
+  // ─── #7 ───
   {
     _id: "7",
     name: "Classic Leather",
@@ -168,6 +178,7 @@ export const products: Product[] = [
     isBestSeller: true,
     inStock: true,
   },
+  // ─── #8 ───
   {
     _id: "8",
     name: "FlexCore Training",
@@ -188,8 +199,10 @@ export const products: Product[] = [
     rating: 4.3,
     reviewCount: 124,
     isNew: true,
+    isBestSeller: true,
     inStock: true,
   },
+  // ─── 9 ───
   {
     _id: "9",
     name: "Nova Glide",
@@ -213,6 +226,7 @@ export const products: Product[] = [
     isNew: true,
     inStock: true,
   },
+  // ─── 10 ───
   {
     _id: "10",
     name: "Metro Walk",
@@ -232,9 +246,9 @@ export const products: Product[] = [
     ],
     rating: 4.2,
     reviewCount: 203,
-    isBestSeller: true,
     inStock: true,
   },
+  // ─── 11 ───
   {
     _id: "11",
     name: "Apex Elite",
@@ -258,6 +272,7 @@ export const products: Product[] = [
     isNew: true,
     inStock: true,
   },
+  // ─── 12 ───
   {
     _id: "12",
     name: "Breeze Sandal",
@@ -280,25 +295,88 @@ export const products: Product[] = [
   },
 ];
 
-export const testimonials = [
+export const testimonials: Testimonial[] = [
   {
-    name: "Sarah M.",
-    text: "Absolutely love my new running shoes! The comfort is unmatched. Best purchase I have made this year.",
+    name: "Sarah Johnson",
+    location: "Los Angeles, CA",
     rating: 5,
+    comment: "Absolutely love these shoes! They're perfect for my daily runs. The comfort is unmatched and they still look brand new after months of use.",
+    avatar: "https://i.pravatar.cc/80?img=1",
+    date: "2 days ago",
+    verified: true,
   },
   {
-    name: "James K.",
-    text: "Great quality and fast shipping. The size guide was accurate and the shoes fit perfectly.",
+    name: "Mike Chen",
+    location: "Singapore",
     rating: 5,
+    comment: "Great quality and fast shipping. The size guide was accurate and the shoes fit perfectly. Will definitely be buying more!",
+    avatar: "https://i.pravatar.cc/80?img=3",
+    date: "1 week ago",
+    verified: true,
   },
   {
-    name: "Emma L.",
-    text: "I have been wearing these daily for a month and they still look brand new. Highly recommend!",
+    name: "Emma Rodriguez",
+    location: "Miami, FL",
+    rating: 5,
+    comment: "I've been wearing these daily for a month and they still look brand new. The comfort level is incredible. Highly recommend to everyone!",
+    avatar: "https://i.pravatar.cc/80?img=5",
+    date: "3 days ago",
+    verified: true,
+  },
+  {
+    name: "James Wilson",
+    location: "London, UK",
     rating: 4,
+    comment: "The customer service was amazing and the shoes exceeded my expectations. The ordering process was smooth and delivery was prompt.",
+    avatar: "https://i.pravatar.cc/80?img=8",
+    date: "5 days ago",
+    verified: true,
   },
   {
-    name: "Michael R.",
-    text: "The customer service was amazing and the shoes exceeded my expectations. Will shop again.",
+    name: "Priya Patel",
+    location: "Mumbai, India",
     rating: 5,
+    comment: "Best purchase I've made this year! The shoes are incredibly comfortable and stylish. Received so many compliments already.",
+    avatar: "https://i.pravatar.cc/80?img=9",
+    date: "1 week ago",
+    verified: true,
+  },
+  {
+    name: "Alex Thompson",
+    location: "Toronto, Canada",
+    rating: 5,
+    comment: "Finally found the perfect pair of running shoes. The cushioning is amazing and my feet feel great even after long runs.",
+    avatar: "https://i.pravatar.cc/80?img=11",
+    date: "2 weeks ago",
+    verified: true,
+  },
+  {
+    name: "Sophie Laurent",
+    location: "Paris, France",
+    rating: 4,
+    comment: "Très bien! The quality is outstanding and the design is elegant. Worth every penny. Shipping to France was faster than expected.",
+    avatar: "https://i.pravatar.cc/80?img=15",
+    date: "3 days ago",
+    verified: true,
   },
 ];
+
+export const brands: Brand[] = [
+  { name: "Nike", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/120px-Logo_NIKE.svg.png", width: 80, height: 40 },
+  { name: "Adidas", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Adidas_logo.png/120px-Adidas_logo.png", width: 80, height: 40 },
+  { name: "Puma", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Puma_logo.svg/120px-Puma_logo.svg.png", width: 80, height: 40 },
+  { name: "Reebok", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Reebok_logo.svg/120px-Reebok_logo.svg.png", width: 80, height: 40 },
+  { name: "New Balance", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/New_Balance_logo.svg/120px-New_Balance_logo.svg.png", width: 80, height: 40 },
+  { name: "Asics", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Asics_logo.svg/120px-Asics_logo.svg.png", width: 80, height: 40 },
+  { name: "Skechers", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Skechers_logo.svg/120px-Skechers_logo.svg.png", width: 80, height: 40 },
+  { name: "Converse", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Converse_logo.svg/120px-Converse_logo.svg.png", width: 80, height: 40 },
+];
+
+export const categoryIcons: Record<string, { icon: string; color: string; hoverColor: string }> = {
+  "Men's": { icon: "👔", color: "#F0F4FF", hoverColor: "#2563EB" },
+  "Women's": { icon: "👗", color: "#FFF0F5", hoverColor: "#EC4899" },
+  "Kids": { icon: "👶", color: "#F0FFF4", hoverColor: "#22C55E" },
+  "Sports": { icon: "⚽", color: "#FFF7F0", hoverColor: "#F97316" },
+  "Formal": { icon: "👞", color: "#F8FAFC", hoverColor: "#64748B" },
+  "Casual": { icon: "👟", color: "#FFF5F0", hoverColor: "#F59E0B" },
+};
