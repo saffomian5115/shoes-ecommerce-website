@@ -42,6 +42,7 @@ export function ProductShowcase({ items }: ProductShowcaseProps) {
   const [activeIndex, setActiveIndex] = useState(MIDDLE_START);
   const [dragOffset, setDragOffset] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [skipAnimation, setSkipAnimation] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
@@ -81,26 +82,39 @@ export function ProductShowcase({ items }: ProductShowcaseProps) {
     [containerWidth, CARD_WIDTH, CARD_GAP]
   );
 
-  // ─── Navigation ───
+  // ─── Navigation (seamless infinite loop) ───
   const navigateTo = useCallback((target: number) => {
     setActiveIndex(target);
   }, []);
 
   const handlePrev = useCallback(() => {
     const next = activeIndex - 1;
-    navigateTo(next);
     if (next < ITEM_COUNT) {
-      setTimeout(() => setActiveIndex(next + ITEM_COUNT), 800);
+      // Teleport instantly (no animation) to the middle copy
+      setSkipAnimation(true);
+      setActiveIndex(next + ITEM_COUNT);
+    } else {
+      navigateTo(next);
     }
   }, [activeIndex, ITEM_COUNT, navigateTo]);
 
   const handleNext = useCallback(() => {
     const next = activeIndex + 1;
-    navigateTo(next);
     if (next >= ITEM_COUNT * 2) {
-      setTimeout(() => setActiveIndex(next - ITEM_COUNT), 800);
+      // Teleport instantly (no animation) to the middle copy
+      setSkipAnimation(true);
+      setActiveIndex(next - ITEM_COUNT);
+    } else {
+      navigateTo(next);
     }
   }, [activeIndex, ITEM_COUNT, navigateTo]);
+
+  // Restore spring animation after teleport
+  useEffect(() => {
+    if (skipAnimation) {
+      requestAnimationFrame(() => setSkipAnimation(false));
+    }
+  }, [skipAnimation]);
 
   const goToSlide = useCallback(
     (index: number) => {
@@ -194,8 +208,8 @@ export function ProductShowcase({ items }: ProductShowcaseProps) {
           className="flex"
           animate={{ x: getX(activeIndex, isDragging ? dragOffset : 0) }}
           transition={
-            isDragging
-              ? { type: "tween", duration: 0 } // instant follow while dragging
+            isDragging || skipAnimation
+              ? { type: "tween", duration: 0 } // instant follow while dragging or teleporting
               : { type: "spring", bounce: 0.15, duration: 0.7 }
           }
           style={{ gap: CARD_GAP }}

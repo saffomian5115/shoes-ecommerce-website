@@ -362,14 +362,14 @@ export const testimonials: Testimonial[] = [
 ];
 
 export const brands: Brand[] = [
-  { name: "Nike", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/120px-Logo_NIKE.svg.png", width: 80, height: 40 },
-  { name: "Adidas", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Adidas_logo.png/120px-Adidas_logo.png", width: 80, height: 40 },
-  { name: "Puma", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Puma_logo.svg/120px-Puma_logo.svg.png", width: 80, height: 40 },
-  { name: "Reebok", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Reebok_logo.svg/120px-Reebok_logo.svg.png", width: 80, height: 40 },
-  { name: "New Balance", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/New_Balance_logo.svg/120px-New_Balance_logo.svg.png", width: 80, height: 40 },
-  { name: "Asics", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Asics_logo.svg/120px-Asics_logo.svg.png", width: 80, height: 40 },
-  { name: "Skechers", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Skechers_logo.svg/120px-Skechers_logo.svg.png", width: 80, height: 40 },
-  { name: "Converse", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Converse_logo.svg/120px-Converse_logo.svg.png", width: 80, height: 40 },
+  { name: "Nike", logo: "https://logo.clearbit.com/nike.com", width: 80, height: 40 },
+  { name: "Adidas", logo: "https://logo.clearbit.com/adidas.com", width: 80, height: 40 },
+  { name: "Puma", logo: "https://logo.clearbit.com/puma.com", width: 80, height: 40 },
+  { name: "Reebok", logo: "https://logo.clearbit.com/reebok.com", width: 80, height: 40 },
+  { name: "New Balance", logo: "https://logo.clearbit.com/newbalance.com", width: 80, height: 40 },
+  { name: "Asics", logo: "https://logo.clearbit.com/asics.com", width: 80, height: 40 },
+  { name: "Skechers", logo: "https://logo.clearbit.com/skechers.com", width: 80, height: 40 },
+  { name: "Converse", logo: "https://logo.clearbit.com/converse.com", width: 80, height: 40 },
 ];
 
 export const brandLinks: Record<string, string> = {

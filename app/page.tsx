@@ -11,7 +11,6 @@ import {
   RotateCcw,
   Flame,
   Zap,
-  HeadphonesIcon,
   Sparkles,
   ShoppingBag,
   Mail,
@@ -49,38 +48,6 @@ function CategoryIcon({ iconName, className }: { iconName: string; className?: s
   const Icon = iconMap[iconName];
   return Icon ? <Icon className={className} /> : null;
 }
-
-// ─── Why Choose Us Features ───
-const whyChooseUs = [
-  {
-    icon: Truck,
-    title: "Free Shipping",
-    description: "Worldwide delivery in 3-5 business days on all orders over $100",
-    color: "from-blue-500 to-blue-600",
-    bgColor: "bg-blue-50 dark:bg-blue-950/30",
-  },
-  {
-    icon: RotateCcw,
-    title: "Easy Returns",
-    description: "30-day money-back guarantee with free return shipping",
-    color: "from-green-500 to-green-600",
-    bgColor: "bg-green-50 dark:bg-green-950/30",
-  },
-  {
-    icon: Gem,
-    title: "Authentic Products",
-    description: "100% genuine, brand-warranty included with every purchase",
-    color: "from-purple-500 to-purple-600",
-    bgColor: "bg-purple-50 dark:bg-purple-950/30",
-  },
-  {
-    icon: HeadphonesIcon,
-    title: "24/7 Support",
-    description: "Live chat and email support ready to help you anytime",
-    color: "from-orange-500 to-orange-600",
-    bgColor: "bg-orange-50 dark:bg-orange-950/30",
-  },
-];
 
 // ─── Hero Trust Badges ───
 const trustBadges = [
@@ -294,35 +261,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ─── 9. WHY CHOOSE US ─── */}
-      <section className="py-12 lg:py-16 border-y border-border/40">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Why Choose SoleMate?</h2>
-            <p className="text-muted-foreground mt-1">We go the extra mile for your comfort</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {whyChooseUs.map((feature) => (
-              <div
-                key={feature.title}
-                className="group relative rounded-xl border border-border/50 bg-card p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 hover:border-border"
-              >
-                <div
-                  className={cn(
-                    "flex h-14 w-14 items-center justify-center rounded-xl mb-4 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg",
-                    feature.bgColor
-                  )}
-                >
-                  <feature.icon className="h-7 w-7 text-foreground" />
-                </div>
-                <h3 className="font-semibold text-base mb-2">{feature.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ─── 2. CATEGORY GRID ─── */}
       <section className="py-16 lg:py-20">
         <div className="container mx-auto px-4">
@@ -356,7 +294,7 @@ export default function HomePage() {
                   {/* Hover background */}
                   <div
                     className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"
-                    style={{ backgroundColor: catStyle.color }}
+                    style={{ backgroundColor: catStyle.hoverColor }}
                   />
                   {/* Content */}
                   <div className="relative z-10 flex flex-col items-center">
