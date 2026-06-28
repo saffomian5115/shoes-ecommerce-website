@@ -123,41 +123,6 @@
   }
 }
 
-/* ─── Subtle background texture ─── */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  background-image:
-    radial-gradient(ellipse at 20% 50%, oklch(0.55 0.18 260 / 0.03) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, oklch(0.45 0.12 160 / 0.03) 0%, transparent 50%),
-    radial-gradient(ellipse at 40% 80%, oklch(0.6 0.15 35 / 0.02) 0%, transparent 50%);
-}
-
-.dark body::before {
-  background-image:
-    radial-gradient(ellipse at 20% 50%, oklch(0.65 0.18 260 / 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, oklch(0.55 0.14 160 / 0.05) 0%, transparent 50%),
-    radial-gradient(ellipse at 40% 80%, oklch(0.7 0.17 35 / 0.04) 0%, transparent 50%);
-}
-
-/* Subtle dot pattern overlay */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  background-image: radial-gradient(circle, oklch(0.13 0.01 260 / 0.03) 1px, transparent 1px);
-  background-size: 48px 48px;
-}
-
-.dark body::after {
-  background-image: radial-gradient(circle, oklch(0.93 0.01 260 / 0.03) 1px, transparent 1px);
-}
-
 @keyframes scroll {
   0% {
     transform: translateX(0);

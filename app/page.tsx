@@ -29,11 +29,11 @@ import {
   Shirt,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { ProductCard } from "@/components/product/ProductCard";
 import { ProductSkeleton } from "@/components/product/ProductSkeleton";
 import { ProductCarousel } from "@/components/ui/product-carousel";
 import { BrandShowcase } from "@/components/ui/brand-showcase";
+import { ProductShowcase } from "@/components/ui/ProductShowcase";
 import { PromotionalBanner } from "@/components/ui/promotional-banner";
 import { testimonials, categories, categoryIcons } from "@/lib/placeholder-data";
 import { fetchProducts } from "@/lib/api";
@@ -389,7 +389,7 @@ export default function HomePage() {
       </section>
 
       {/* ─── 4. BEST SELLERS ─── */}
-      <section className="py-16 lg:py-20 bg-muted/20">
+      <section className="py-16 lg:py-20 bg-muted/20 overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-10">
             <div>
@@ -398,7 +398,7 @@ export default function HomePage() {
                 <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Popular</span>
               </div>
               <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Best Sellers</h2>
-              <p className="text-muted-foreground mt-1">Most loved products by our customers</p>
+              <p className="text-muted-foreground mt-1">Hover over a card to see details — click to explore</p>
             </div>
             <Button variant="outline" asChild>
               <Link href="/shop">
@@ -409,31 +409,27 @@ export default function HomePage() {
           </div>
 
           {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {Array.from({ length: 8 }).map((_, i) => <ProductSkeleton key={i} />)}
+            <div className="flex justify-center py-12">
+              <div className="grid grid-cols-5 gap-4">
+                {Array.from({ length: 5 }).map((_, i) => <ProductSkeleton key={i} />)}
+              </div>
             </div>
           ) : error ? (
             <p className="text-center text-muted-foreground py-8">Failed to load products.</p>
+          ) : bestSellers.length > 0 ? (
+            <ProductShowcase
+              items={bestSellers.map((p, idx) => ({
+                slug: p.slug,
+                image: p.images[0],
+                name: p.name,
+                price: p.price,
+                rating: p.rating,
+                reviewCount: p.reviewCount,
+                badge: getProductBadge(p, idx),
+              }))}
+            />
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {bestSellers.slice(0, 8).map((product, idx) => {
-                const badge = getProductBadge(product, idx);
-                return (
-                  <div key={product._id} className="relative group">
-                    {/* Badge */}
-                    {badge && (
-                      <div className="absolute -top-2 -left-2 z-20">
-                        <Badge variant={badge.variant} className="flex items-center gap-1.5 px-3 py-1 text-xs shadow-lg">
-                          <badge.icon className="h-3 w-3" />
-                          {badge.label}
-                        </Badge>
-                      </div>
-                    )}
-                    <ProductCard product={product} />
-                  </div>
-                );
-              })}
-            </div>
+            <p className="text-center text-muted-foreground py-8">No best sellers available.</p>
           )}
         </div>
       </section>
