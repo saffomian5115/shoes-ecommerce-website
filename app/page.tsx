@@ -21,6 +21,12 @@ import {
   TrendingUp,
   Award,
   Gem,
+  User,
+  UserRound,
+  Baby,
+  Trophy,
+  Briefcase,
+  Shirt,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -33,6 +39,16 @@ import { testimonials, categories, categoryIcons } from "@/lib/placeholder-data"
 import { fetchProducts } from "@/lib/api";
 import type { Product } from "@/types";
 import { cn } from "@/lib/utils";
+
+// ─── Category Icon Mapper ───
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  User, UserRound, Baby, Trophy, Briefcase, Shirt,
+};
+
+function CategoryIcon({ iconName, className }: { iconName: string; className?: string }) {
+  const Icon = iconMap[iconName];
+  return Icon ? <Icon className={className} /> : null;
+}
 
 // ─── Why Choose Us Features ───
 const whyChooseUs = [
@@ -238,30 +254,31 @@ export default function HomePage() {
 
             {/* Right: Hero Image with Floating Badge */}
             <div className="flex-1 mt-12 lg:mt-0 relative">
-              <div className="relative aspect-square max-w-lg mx-auto">
+              <div className="relative max-w-2xl mx-auto overflow-hidden">
                 {/* Glow */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 blur-3xl animate-pulse" />
-                {/* Shoe Image */}
+                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 blur-3xl animate-pulse scale-110" />
+                {/* Shoe Image — large & dramatic */}
                 <div className="relative h-full w-full flex items-center justify-center animate-in zoom-in duration-700 delay-300">
                   <img
-                    src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80"
+                    src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=1000&q=80"
                     alt="Featured shoe"
-                    className="w-full h-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-700"
+                    className="w-full h-auto object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-700 scale-110 sm:scale-125 lg:scale-150"
+                    style={{ mixBlendMode: 'multiply' }}
                   />
                 </div>
 
                 {/* Floating Discount Badge */}
-                <div className="absolute top-4 right-4 animate-float">
-                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-orange-400 to-red-500 shadow-xl">
+                <div className="absolute top-4 right-4 lg:top-8 lg:right-8 animate-float">
+                  <div className="flex h-24 w-24 lg:h-28 lg:w-28 items-center justify-center rounded-full bg-gradient-to-br from-orange-400 to-red-500 shadow-xl">
                     <div className="text-center">
-                      <span className="block text-lg font-bold text-white leading-tight">40%</span>
-                      <span className="block text-[10px] font-semibold text-white/90">OFF</span>
+                      <span className="block text-xl lg:text-2xl font-bold text-white leading-tight">40%</span>
+                      <span className="block text-xs font-semibold text-white/90">OFF</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Floating Review Badge */}
-                <div className="absolute -bottom-2 -left-4 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-1000">
+                <div className="absolute -bottom-4 left-2 lg:-bottom-6 lg:left-4 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-1000">
                   <div className="flex items-center gap-2 rounded-xl bg-background/95 backdrop-blur-sm border border-border/50 px-4 py-2.5 shadow-lg">
                     <div className="flex">
                       {[1, 2, 3, 4, 5].map((i) => (
@@ -328,7 +345,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {categories.map((cat) => {
-              const catStyle = categoryIcons[cat.name] || { icon: "👟", color: "#F8FAFC", hoverColor: "#64748B" };
+              const catStyle = categoryIcons[cat.name] || { iconName: "Shirt", color: "#F8FAFC", hoverColor: "#64748B" };
               return (
                 <Link
                   key={cat.name}
@@ -343,9 +360,10 @@ export default function HomePage() {
                   />
                   {/* Content */}
                   <div className="relative z-10 flex flex-col items-center">
-                    <span className="text-3xl sm:text-4xl mb-2 transition-transform duration-300 group-hover:scale-110">
-                      {catStyle.icon}
-                    </span>
+                    <CategoryIcon
+                      iconName={catStyle.iconName}
+                      className="h-8 w-8 sm:h-10 sm:w-10 mb-2 text-foreground/60 transition-transform duration-300 group-hover:scale-110 group-hover:text-white"
+                    />
                     <span className="text-sm font-medium group-hover:text-white transition-colors duration-300">
                       {cat.name} Shoes
                     </span>
@@ -607,8 +625,9 @@ export default function HomePage() {
                 </form>
               )}
 
-              <p className="text-xs text-muted-foreground/60 mt-6">
-                ✅ No spam. Unsubscribe anytime. We respect your privacy.
+              <p className="text-xs text-muted-foreground/60 mt-6 flex items-center justify-center gap-1.5">
+                <Check className="h-3 w-3" />
+                No spam. Unsubscribe anytime. We respect your privacy.
               </p>
             </div>
           </div>

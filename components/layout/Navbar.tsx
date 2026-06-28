@@ -17,6 +17,7 @@ import { useCartStore } from "@/store/cart";
 import { SearchBar } from "@/components/layout/SearchBar";
 import { CategoryMegaMenu } from "@/components/layout/CategoryMegaMenu";
 import { UserMenu } from "@/components/layout/UserMenu";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { MiniCart } from "@/components/layout/MiniCart";
 import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 
@@ -208,6 +209,9 @@ export function Navbar() {
                   </span>
                 )}
               </Link>
+
+              {/* Theme Toggle */}
+              <ThemeToggle />
 
               {/* User Account — Desktop only */}
               <div className="hidden sm:block">

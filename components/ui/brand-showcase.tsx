@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { brands } from "@/lib/placeholder-data";
-import { Star } from "lucide-react";
+import Link from "next/link";
+import { brands, brandLinks } from "@/lib/placeholder-data";
+import { Star, Truck, RefreshCw, Check } from "lucide-react";
 
 export function BrandShowcase() {
   return (
@@ -33,8 +34,11 @@ export function BrandShowcase() {
             <div className="flex animate-scroll gap-12 md:gap-16 items-center py-4 group-hover:[animation-play-state:paused]">
               {/* Double the brands for seamless loop */}
               {[...brands, ...brands].map((brand, idx) => (
-                <div
+                <Link
                   key={`${brand.name}-${idx}`}
+                  href={brandLinks[brand.name] || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex-shrink-0 flex items-center justify-center h-16 w-28 md:w-32 grayscale hover:grayscale-0 transition-all duration-500 hover:scale-110"
                 >
                   <Image
@@ -44,20 +48,29 @@ export function BrandShowcase() {
                     height={brand.height}
                     className="object-contain max-h-12 opacity-50 hover:opacity-100 transition-all duration-500"
                   />
-                </div>
+                </Link>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Customer count */}
+        {/* Trust badges */}
         <div className="text-center mt-10">
-          <div className="inline-flex items-center gap-6 text-sm text-muted-foreground">
-            <span>🚚 Free Shipping Worldwide</span>
-            <span className="hidden sm:inline">•</span>
-            <span className="hidden sm:inline">🔄 30-Day Easy Returns</span>
-            <span className="hidden sm:inline">•</span>
-            <span>✅ 100% Authentic Products</span>
+          <div className="inline-flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5">
+              <Truck className="h-4 w-4 text-primary" />
+              Free Shipping Worldwide
+            </span>
+            <span className="hidden sm:inline text-muted-foreground/30">•</span>
+            <span className="inline-flex items-center gap-1.5">
+              <RefreshCw className="h-4 w-4 text-primary" />
+              30-Day Easy Returns
+            </span>
+            <span className="hidden sm:inline text-muted-foreground/30">•</span>
+            <span className="inline-flex items-center gap-1.5">
+              <Check className="h-4 w-4 text-primary" />
+              100% Authentic Products
+            </span>
           </div>
         </div>
       </div>

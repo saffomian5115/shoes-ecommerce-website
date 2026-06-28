@@ -372,11 +372,22 @@ export const brands: Brand[] = [
   { name: "Converse", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Converse_logo.svg/120px-Converse_logo.svg.png", width: 80, height: 40 },
 ];
 
-export const categoryIcons: Record<string, { icon: string; color: string; hoverColor: string }> = {
-  "Men's": { icon: "👔", color: "#F0F4FF", hoverColor: "#2563EB" },
-  "Women's": { icon: "👗", color: "#FFF0F5", hoverColor: "#EC4899" },
-  "Kids": { icon: "👶", color: "#F0FFF4", hoverColor: "#22C55E" },
-  "Sports": { icon: "⚽", color: "#FFF7F0", hoverColor: "#F97316" },
-  "Formal": { icon: "👞", color: "#F8FAFC", hoverColor: "#64748B" },
-  "Casual": { icon: "👟", color: "#FFF5F0", hoverColor: "#F59E0B" },
+export const brandLinks: Record<string, string> = {
+  "Nike": "https://www.nike.com",
+  "Adidas": "https://www.adidas.com",
+  "Puma": "https://www.puma.com",
+  "Reebok": "https://www.reebok.com",
+  "New Balance": "https://www.newbalance.com",
+  "Asics": "https://www.asics.com",
+  "Skechers": "https://www.skechers.com",
+  "Converse": "https://www.converse.com",
+};
+
+export const categoryIcons: Record<string, { iconName: string; color: string; hoverColor: string }> = {
+  "Men's": { iconName: "User", color: "#F0F4FF", hoverColor: "#2563EB" },
+  "Women's": { iconName: "UserRound", color: "#FFF0F5", hoverColor: "#EC4899" },
+  "Kids": { iconName: "Baby", color: "#F0FFF4", hoverColor: "#22C55E" },
+  "Sports": { iconName: "Trophy", color: "#FFF7F0", hoverColor: "#F97316" },
+  "Formal": { iconName: "Briefcase", color: "#F8FAFC", hoverColor: "#64748B" },
+  "Casual": { iconName: "Shirt", color: "#FFF5F0", hoverColor: "#F59E0B" },
 };
