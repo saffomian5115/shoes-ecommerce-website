@@ -6,13 +6,9 @@ import Link from "next/link";
 import {
   ArrowRight,
   Star,
-  Truck,
-  ShieldCheck,
-  RotateCcw,
   Flame,
   Zap,
   Sparkles,
-  ShoppingBag,
   Mail,
   Check,
   X,
@@ -31,6 +27,7 @@ import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/product/ProductCard";
 import { ProductSkeleton } from "@/components/product/ProductSkeleton";
 import { ProductCarousel } from "@/components/ui/product-carousel";
+import { AnimatedHero } from "@/components/hero/AnimatedHero";
 import { BrandShowcase } from "@/components/ui/brand-showcase";
 import { ProductShowcase } from "@/components/ui/ProductShowcase";
 import { PromotionalBanner } from "@/components/ui/promotional-banner";
@@ -48,14 +45,6 @@ function CategoryIcon({ iconName, className }: { iconName: string; className?: s
   const Icon = iconMap[iconName];
   return Icon ? <Icon className={className} /> : null;
 }
-
-// ─── Hero Trust Badges ───
-const trustBadges = [
-  { icon: Truck, label: "Free Shipping Worldwide" },
-  { icon: RotateCcw, label: "30-Day Easy Returns" },
-  { icon: ShieldCheck, label: "Secure Payment" },
-  { icon: Check, label: "100% Authentic" },
-];
 
 // ─── Badge System for Best Sellers ───
 const bestSellerBadges = [
@@ -137,129 +126,7 @@ export default function HomePage() {
       </div>
 
       {/* ─── 1. HERO SECTION ─── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-primary/5">
-        {/* Background decoration */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-primary/5 blur-3xl" />
-          <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />
-        </div>
-
-        <div className="container mx-auto px-4 relative">
-          <div className="flex flex-col lg:flex-row items-center min-h-[85vh] py-16 lg:py-0">
-            {/* Left Content */}
-            <div className="flex-1 space-y-6 lg:pr-12 relative z-10">
-              {/* New Collection Chip */}
-              <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm text-primary animate-in fade-in slide-in-from-bottom-2 duration-500">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-                New Collection 2026
-              </div>
-
-              {/* Headline */}
-              <div className="space-y-2 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight tracking-tight">
-                  Step Into{" "}
-                  <span className="text-primary">Style</span>
-                  <br />
-                  <span className="text-muted-foreground/50">Walk With</span>{" "}
-                  <span className="bg-gradient-to-r from-primary to-purple-500 bg-clip-text text-transparent">
-                    Comfort
-                  </span>
-                </h1>
-              </div>
-
-              <p className="text-lg text-muted-foreground max-w-lg leading-relaxed animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
-                Discover premium footwear crafted for every journey. From running tracks to city streets — find your perfect fit.
-              </p>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 pt-2 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
-                <Button size="lg" asChild className="group h-12 px-8 text-base shadow-lg hover:shadow-primary/25 transition-all duration-300">
-                  <Link href="/shop">
-                    Shop Now
-                    <ShoppingBag className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Link>
-                </Button>
-                <Button size="lg" variant="outline" asChild className="h-12 px-8 text-base group">
-                  <Link href="/shop?category=running">
-                    Explore Collection
-                    <ChevronRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Link>
-                </Button>
-              </div>
-
-              {/* Trust Badges */}
-              <div className="grid grid-cols-2 gap-x-4 gap-y-2 pt-4 max-w-md animate-in fade-in slide-in-from-bottom-4 duration-700 delay-500">
-                {trustBadges.map((badge) => (
-                  <div key={badge.label} className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <badge.icon className="h-4 w-4 text-primary shrink-0" />
-                    <span>{badge.label}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Social Proof */}
-              <div className="flex items-center gap-4 pt-2 animate-in fade-in duration-700 delay-700">
-                <div className="flex -space-x-2">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div
-                      key={i}
-                      className="h-8 w-8 rounded-full border-2 border-background bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center text-xs font-medium text-primary"
-                    >
-                      {String.fromCharCode(64 + i)}
-                    </div>
-                  ))}
-                </div>
-                <div className="text-sm">
-                  <div className="flex items-center gap-1">
-                    <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
-                    <span className="font-semibold">4.8</span>
-                    <span className="text-muted-foreground">(12,000+ reviews)</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right: Hero Image with Floating Badge */}
-            <div className="flex-1 mt-12 lg:mt-0 relative">
-              <div className="relative max-w-2xl mx-auto overflow-hidden">
-                {/* Glow */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-primary/5 blur-3xl animate-pulse scale-110" />
-                {/* Shoe Image — large & dramatic */}
-                <div className="relative h-full w-full flex items-center justify-center animate-in zoom-in duration-700 delay-300">
-                  <img
-                    src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=1000&q=80"
-                    alt="Featured shoe"
-                    className="w-full h-auto object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-700 scale-110 sm:scale-125 lg:scale-150"
-                    style={{ mixBlendMode: 'multiply' }}
-                  />
-                </div>
-
-                {/* Floating Discount Badge */}
-                <div className="absolute top-4 right-4 lg:top-8 lg:right-8 animate-float">
-                  <div className="flex h-24 w-24 lg:h-28 lg:w-28 items-center justify-center rounded-full bg-gradient-to-br from-orange-400 to-red-500 shadow-xl">
-                    <div className="text-center">
-                      <span className="block text-xl lg:text-2xl font-bold text-white leading-tight">40%</span>
-                      <span className="block text-xs font-semibold text-white/90">OFF</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Floating Review Badge */}
-                <div className="absolute -bottom-4 left-2 lg:-bottom-6 lg:left-4 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-1000">
-                  <div className="flex items-center gap-2 rounded-xl bg-background/95 backdrop-blur-sm border border-border/50 px-4 py-2.5 shadow-lg">
-                    <div className="flex">
-                      {[1, 2, 3, 4, 5].map((i) => (
-                        <Star key={i} className="h-3 w-3 fill-yellow-400 text-yellow-400" />
-                      ))}
-                    </div>
-                    <span className="text-xs font-medium">520+ Happy Customers</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <AnimatedHero />
 
       {/* ─── 2. CATEGORY GRID ─── */}
       <section className="py-16 lg:py-20">
