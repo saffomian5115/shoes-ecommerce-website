@@ -224,8 +224,8 @@
 .big-text {
   font-style: italic;
   font-weight: 800;
-  font-size: clamp(60px, 12vw, 160px);
-  letter-spacing: -0.045em;
+  font-size: clamp(40px, 11vw, 180px);
+  letter-spacing: -0.015em;
   line-height: 0.85;
   color: hsl(var(--muted-foreground) / 0.15);
   text-align: center;
@@ -395,7 +395,7 @@
     font-size: 10vw;
   }
   .big-text {
-    font-size: 24vw;
+    font-size: 14vw;
   }
   .cards-row {
     height: 220px;

@@ -184,7 +184,7 @@ export function AnimatedHero() {
       {/* Large faded background text: BOLD STYLE */}
       <div className="big-text-wrap">
         <div className="big-text">
-          {"BOLD STYLE".split("").map((char, i) => (
+          {"WALK THIS WAY".split("").map((char, i) => (
             <span key={i} className="big-letter">
               {char === " " ? "\u00A0" : char}
             </span>
