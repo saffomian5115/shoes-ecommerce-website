@@ -19,14 +19,14 @@ gsap.registerPlugin(ScrollTrigger);
 
 // ─── 8 Shoe images for floating cards ───
 const shoeCards = [
-  { src: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=600&fit=crop&q=80", rot: -9, depth: 14 },
-  { src: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=600&fit=crop&q=80", rot: -5, depth: 10 },
-  { src: "https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?w=400&h=600&fit=crop&q=80", rot: -2, depth: 8 },
-  { src: "https://images.unsplash.com/photo-1597045566677-8cf032ed8434?w=400&h=600&fit=crop&q=80", rot: 3, depth: 12 },
-  { src: "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=400&h=600&fit=crop&q=80", rot: 0, depth: 6 },
-  { src: "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=400&h=600&fit=crop&q=80", rot: 4, depth: 11 },
-  { src: "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=400&h=600&fit=crop&q=80", rot: 7, depth: 9 },
-  { src: "https://images.unsplash.com/photo-1595341888016-a392ef81b7de?w=400&h=600&fit=crop&q=80", rot: -4, depth: 13 },
+  { src: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=600&fit=crop&q=80", rot: -9, depth: 14, slug: "airmax-pulse" },
+  { src: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=600&fit=crop&q=80", rot: -5, depth: 10, slug: "cloudwalker-pro" },
+  { src: "https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?w=400&h=600&fit=crop&q=80", rot: -2, depth: 8, slug: "stridex-elite" },
+  { src: "https://images.unsplash.com/photo-1597045566677-8cf032ed8434?w=400&h=600&fit=crop&q=80", rot: 3, depth: 12, slug: "urban-flex" },
+  { src: "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=400&h=600&fit=crop&q=80", rot: 0, depth: 6, slug: "velocity-sprint" },
+  { src: "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=400&h=600&fit=crop&q=80", rot: 4, depth: 11, slug: "trailblazer-hiking" },
+  { src: "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=400&h=600&fit=crop&q=80", rot: 7, depth: 9, slug: "classic-leather" },
+  { src: "https://images.unsplash.com/photo-1595341888016-a392ef81b7de?w=400&h=600&fit=crop&q=80", rot: -4, depth: 13, slug: "flexcore-training" },
 ];
 
 const trustBadges = [
@@ -132,44 +132,6 @@ export function AnimatedHero() {
       }
       rAFId.current = requestAnimationFrame(parallax);
 
-      // ── Card Hover 3D Tilt ──
-      document.querySelectorAll(".shoe-card").forEach((card) => {
-        const el = card as HTMLElement;
-
-        const handleHoverMove = (e: MouseEvent) => {
-          const r = el.getBoundingClientRect();
-          const px = (e.clientX - r.left) / r.width - 0.5;
-          const py = (e.clientY - r.top) / r.height - 0.5;
-          gsap.to(el, {
-            rotateX: -py * 16,
-            rotateY: px * 16,
-            scale: 1.12,
-            zIndex: 20,
-            duration: 0.4,
-            ease: "power2.out",
-            transformPerspective: 700,
-            overwrite: "auto",
-          });
-        };
-
-        const handleHoverLeave = () => {
-          gsap.to(el, {
-            rotateX: 0, rotateY: 0, scale: 1,
-            duration: 0.8,
-            ease: "elastic.out(1, 0.6)",
-            overwrite: "auto",
-          });
-        };
-
-        el.addEventListener("mousemove", handleHoverMove);
-        el.addEventListener("mouseleave", handleHoverLeave);
-
-        cleanups.push(() => {
-          el.removeEventListener("mousemove", handleHoverMove);
-          el.removeEventListener("mouseleave", handleHoverLeave);
-        });
-      });
-
       // ── ScrollTrigger: Card Fan-Out + Text Effects ──
       const st = ScrollTrigger.create({
         trigger: hero,
@@ -244,9 +206,10 @@ export function AnimatedHero() {
       {/* ── Floating Shoe Cards ── */}
       <div className="cards-row">
         {shoeCards.map((card, i) => (
-          <div
+          <Link
             key={i}
-            className={`shoe-card card-${i + 1}`}
+            href={`/product/${card.slug}`}
+            className={`shoe-card card-${i + 1} block`}
             data-rot={card.rot}
             data-depth={card.depth}
           >
@@ -255,7 +218,7 @@ export function AnimatedHero() {
               alt={`Shoe ${i + 1}`}
               loading="lazy"
             />
-          </div>
+          </Link>
         ))}
       </div>
 

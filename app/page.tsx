@@ -24,9 +24,9 @@ import {
   Shirt,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ProductCard } from "@/components/product/ProductCard";
 import { ProductSkeleton } from "@/components/product/ProductSkeleton";
 import { ProductCarousel } from "@/components/ui/product-carousel";
+import { FloatingNewArrivals } from "@/components/ui/floating-new-arrivals";
 import { AnimatedHero } from "@/components/hero/AnimatedHero";
 import { BrandShowcase } from "@/components/ui/brand-showcase";
 import { ProductShowcase } from "@/components/ui/ProductShowcase";
@@ -245,46 +245,40 @@ export default function HomePage() {
       {/* ─── 6. PROMOTIONAL BANNER ─── */}
       <PromotionalBanner />
 
-      {/* ─── 3. NEW ARRIVALS CAROUSEL ─── */}
-      <section className="py-16 lg:py-20">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between mb-10">
-            <div>
-              <div className="inline-flex items-center gap-2 mb-2">
-                <Sparkles className="h-4 w-4 text-primary" />
-                <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Fresh Drops</span>
+      {/* ─── 3. NEW ARRIVALS FLOATING SCROLL ─── */}
+      {loading ? (
+        <section className="py-16 lg:py-20">
+          <div className="container mx-auto px-4">
+            <div className="flex items-center justify-between mb-10">
+              <div>
+                <div className="inline-flex items-center gap-2 mb-2">
+                  <Sparkles className="h-4 w-4 text-primary" />
+                  <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Fresh Drops</span>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">New Arrivals</h2>
+                <p className="text-muted-foreground mt-1">Fresh drops you haven&apos;t seen yet</p>
               </div>
-              <h2 className="text-2xl md:text-3xl font-bold tracking-tight">New Arrivals</h2>
-              <p className="text-muted-foreground mt-1">Fresh drops you haven&apos;t seen yet</p>
+              <Button variant="outline" asChild>
+                <Link href="/shop">
+                  View All
+                  <ArrowRight className="ml-1 h-4 w-4" />
+                </Link>
+              </Button>
             </div>
-            <Button variant="outline" asChild>
-              <Link href="/shop">
-                View All
-                <ArrowRight className="ml-1 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-
-          {loading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {Array.from({ length: 4 }).map((_, i) => <ProductSkeleton key={i} />)}
             </div>
-          ) : error ? (
+          </div>
+        </section>
+      ) : error ? (
+        <section className="py-16 lg:py-20">
+          <div className="container mx-auto px-4 text-center">
             <p className="text-center text-muted-foreground py-8">Failed to load products.</p>
-          ) : (
-            <ProductCarousel
-              autoSlideInterval={4000}
-              itemsPerView={{ mobile: 1.3, tablet: 2.3, desktop: 4 }}
-            >
-              {newArrivals.map((product) => (
-                <div key={product._id} className="h-full">
-                  <ProductCard product={product} />
-                </div>
-              ))}
-            </ProductCarousel>
-          )}
-        </div>
-      </section>
+          </div>
+        </section>
+      ) : (
+        <FloatingNewArrivals products={newArrivals} />
+      )}
 
       {/* ─── 7. CUSTOMER TESTIMONIALS ─── */}
       <section className="py-16 lg:py-20 bg-muted/20">

@@ -362,14 +362,14 @@ export const testimonials: Testimonial[] = [
 ];
 
 export const brands: Brand[] = [
-  { name: "Nike", logo: "https://logo.clearbit.com/nike.com", width: 80, height: 40 },
-  { name: "Adidas", logo: "https://logo.clearbit.com/adidas.com", width: 80, height: 40 },
-  { name: "Puma", logo: "https://logo.clearbit.com/puma.com", width: 80, height: 40 },
-  { name: "Reebok", logo: "https://logo.clearbit.com/reebok.com", width: 80, height: 40 },
-  { name: "New Balance", logo: "https://logo.clearbit.com/newbalance.com", width: 80, height: 40 },
-  { name: "Asics", logo: "https://logo.clearbit.com/asics.com", width: 80, height: 40 },
-  { name: "Skechers", logo: "https://logo.clearbit.com/skechers.com", width: 80, height: 40 },
-  { name: "Converse", logo: "https://logo.clearbit.com/converse.com", width: 80, height: 40 },
+  { name: "Nike", logo: "https://cdn.simpleicons.org/nike/000", width: 80, height: 40 },
+  { name: "Adidas", logo: "https://cdn.simpleicons.org/adidas/000", width: 80, height: 40 },
+  { name: "Puma", logo: "https://cdn.simpleicons.org/puma/000", width: 80, height: 40 },
+  { name: "Reebok", logo: "https://cdn.simpleicons.org/reebok/000", width: 80, height: 40 },
+  { name: "New Balance", logo: "https://cdn.simpleicons.org/newbalance/000", width: 80, height: 40 },
+  { name: "Asics", logo: "", width: 80, height: 40 },
+  { name: "Skechers", logo: "", width: 80, height: 40 },
+  { name: "Converse", logo: "", width: 80, height: 40 },
 ];
 
 export const brandLinks: Record<string, string> = {
