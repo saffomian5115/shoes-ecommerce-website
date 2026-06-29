@@ -367,9 +367,9 @@ export const brands: Brand[] = [
   { name: "Puma", logo: "https://cdn.simpleicons.org/puma/000", width: 80, height: 40 },
   { name: "Reebok", logo: "https://cdn.simpleicons.org/reebok/000", width: 80, height: 40 },
   { name: "New Balance", logo: "https://cdn.simpleicons.org/newbalance/000", width: 80, height: 40 },
-  { name: "Asics", logo: "", width: 80, height: 40 },
-  { name: "Skechers", logo: "", width: 80, height: 40 },
-  { name: "Converse", logo: "", width: 80, height: 40 },
+  { name: "Asics", logo: "https://cdn.simpleicons.org/asics/000", width: 80, height: 40 },
+  { name: "Skechers", logo: "https://cdn.simpleicons.org/skechers/000", width: 80, height: 40 },
+  { name: "Converse", logo: "https://cdn.simpleicons.org/converse/000", width: 80, height: 40 },
 ];
 
 export const brandLinks: Record<string, string> = {

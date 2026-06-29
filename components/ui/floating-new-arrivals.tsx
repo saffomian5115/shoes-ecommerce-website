@@ -145,7 +145,7 @@ export function FloatingNewArrivals({ products }: FloatingNewArrivalsProps) {
       <div className="absolute inset-y-0 right-0 w-24 z-20 bg-gradient-to-l from-background to-transparent pointer-events-none" />
 
       {/* ─── Header ─── */}
-      <div className="container mx-auto px-4 relative z-10 mb-4">
+      <div className="container mx-auto px-4 relative z-10 mb-2">
         <div className="flex items-center justify-between">
           <div>
             <div className="inline-flex items-center gap-2 mb-2">

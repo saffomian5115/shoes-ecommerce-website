@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { brands, brandLinks } from "@/lib/placeholder-data";
 import { Star, Truck, RefreshCw, Check } from "lucide-react";
@@ -41,19 +40,14 @@ export function BrandShowcase() {
                   rel="noopener noreferrer"
                   className="flex-shrink-0 flex items-center justify-center h-16 w-28 md:w-32 grayscale hover:grayscale-0 transition-all duration-500 hover:scale-110"
                 >
-                  {brand.logo ? (
-                    <Image
-                      src={brand.logo}
-                      alt={brand.name}
-                      width={brand.width}
-                      height={brand.height}
-                      className="object-contain max-h-12 opacity-50 hover:opacity-100 transition-all duration-500"
-                    />
-                  ) : (
-                    <span className="text-sm font-semibold text-muted-foreground opacity-60 hover:opacity-100 transition-all duration-500 px-2 text-center leading-tight">
-                      {brand.name}
-                    </span>
-                  )}
+                  <img
+                    src={brand.logo}
+                    alt={brand.name}
+                    width={brand.width}
+                    height={brand.height}
+                    className="object-contain max-h-12 opacity-50 hover:opacity-100 transition-all duration-500"
+                    loading="lazy"
+                  />
                 </Link>
               ))}
             </div>
