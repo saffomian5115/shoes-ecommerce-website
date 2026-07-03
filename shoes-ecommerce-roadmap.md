@@ -73,19 +73,19 @@ Pura project **12 phases** mein divide hai. Ek phase complete karo, check kar lo
 **Goal:** Pehla impression wala page complete ho.
 
 **Sections to build:**
-- [ ] Hero section (banner + heading + CTA button + animated shoe image)
-- [ ] Categories grid (Running, Casual, Sports, etc.)
-- [ ] Featured/New Arrivals carousel
-- [ ] Best sellers section
-- [ ] Testimonials slider
-- [ ] Newsletter signup section
-- [ ] Footer
+- [x] Hero section (banner + heading + CTA button + animated shoe image)
+- [x] Categories grid (Running, Casual, Sports, etc.)
+- [x] Featured/New Arrivals carousel
+- [x] Best sellers section
+- [x] Testimonials slider
+- [x] Newsletter signup section
+- [x] Footer
 
 **Done when:** Home page fully responsive ho (mobile + desktop) with dummy product data.
 
 ---
 
-## ✅ Phase 4 — Shop & Product Pages (3-4 din)
+## Phase 4 — Shop & Product Pages (3-4 din)
 
 **Goal:** Browsing aur product detail experience complete ho.
 

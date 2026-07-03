@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { SlidersHorizontal, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/product/ProductCard";
@@ -8,6 +8,7 @@ import { ProductSkeleton } from "@/components/product/ProductSkeleton";
 import { fetchProducts } from "@/lib/api";
 import type { Product } from "@/types";
 
+const ITEMS_PER_PAGE = 9;
 const allCategories = ["All", "Running", "Casual", "Sports", "Sneakers", "Formal", "Training"];
 
 export default function ShopPage() {
@@ -17,7 +18,10 @@ export default function ShopPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [sortBy, setSortBy] = useState("newest");
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 300]);
+  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+  const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     fetchProducts()
@@ -31,24 +35,91 @@ export default function ShopPage() {
       });
   }, []);
 
-  let filtered = selectedCategory === "All"
-    ? [...allProducts]
-    : allProducts.filter((p) => p.category === selectedCategory);
+  // Extract unique sizes and colors from all products
+  const { allSizes, allColors } = useMemo(() => {
+    const sizeSet = new Set<string>();
+    const colorMap = new Map<string, string>(); // name -> hex
 
-  filtered = filtered.filter((p) => p.price >= priceRange[0] && p.price <= priceRange[1]);
+    for (const p of allProducts) {
+      for (const s of p.sizes) sizeSet.add(s);
+      for (const c of p.colors) {
+        if (!colorMap.has(c.name)) colorMap.set(c.name, c.hex);
+      }
+    }
 
-  switch (sortBy) {
-    case "price-low":
-      filtered.sort((a, b) => a.price - b.price);
-      break;
-    case "price-high":
-      filtered.sort((a, b) => b.price - a.price);
-      break;
-    case "rating":
-      filtered.sort((a, b) => b.rating - a.rating);
-      break;
-    default:
-      filtered.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0));
+    return {
+      allSizes: Array.from(sizeSet).sort(),
+      allColors: Array.from(colorMap.entries()).map(([name, hex]) => ({ name, hex })),
+    };
+  }, [allProducts]);
+
+  // Reset page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory, sortBy, priceRange, selectedSizes, selectedColors]);
+
+  // Scroll to top on page change
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentPage]);
+
+  // Filter & sort
+  const filtered = useMemo(() => {
+    let result =
+      selectedCategory === "All"
+        ? [...allProducts]
+        : allProducts.filter((p) => p.category === selectedCategory);
+
+    // Price range
+    result = result.filter((p) => p.price >= priceRange[0] && p.price <= priceRange[1]);
+
+    // Sizes
+    if (selectedSizes.length > 0) {
+      result = result.filter((p) => selectedSizes.some((s) => p.sizes.includes(s)));
+    }
+
+    // Colors
+    if (selectedColors.length > 0) {
+      result = result.filter((p) =>
+        p.colors.some((c) => selectedColors.includes(c.name))
+      );
+    }
+
+    // Sort
+    switch (sortBy) {
+      case "price-low":
+        result.sort((a, b) => a.price - b.price);
+        break;
+      case "price-high":
+        result.sort((a, b) => b.price - a.price);
+        break;
+      case "rating":
+        result.sort((a, b) => b.rating - a.rating);
+        break;
+      default:
+        result.sort((a, b) => (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0));
+    }
+
+    return result;
+  }, [allProducts, selectedCategory, sortBy, priceRange, selectedSizes, selectedColors]);
+
+  // Pagination
+  const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
+  const paginatedProducts = filtered.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
+  function toggleSize(size: string) {
+    setSelectedSizes((prev) =>
+      prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size]
+    );
+  }
+
+  function toggleColor(colorName: string) {
+    setSelectedColors((prev) =>
+      prev.includes(colorName) ? prev.filter((c) => c !== colorName) : [...prev, colorName]
+    );
   }
 
   const FiltersContent = () => (
@@ -56,7 +127,7 @@ export default function ShopPage() {
       {/* Categories */}
       <div>
         <h3 className="text-sm font-semibold mb-3">Category</h3>
-        <div className="space-y-2">
+        <div className="space-y-1">
           {allCategories.map((cat) => (
             <button
               key={cat}
@@ -82,13 +153,68 @@ export default function ShopPage() {
             min={0}
             max={300}
             value={priceRange[1]}
-            onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
-            className="w-full"
+            onChange={(e) =>
+              setPriceRange([priceRange[0], parseInt(e.target.value)])
+            }
+            className="w-full accent-primary"
           />
           <div className="flex justify-between text-xs text-muted-foreground">
             <span>${priceRange[0]}</span>
             <span>${priceRange[1]}</span>
           </div>
+        </div>
+      </div>
+
+      {/* Sizes */}
+      <div>
+        <h3 className="text-sm font-semibold mb-3">Size</h3>
+        <div className="flex flex-wrap gap-1.5">
+          {allSizes.map((size) => (
+            <button
+              key={size}
+              onClick={() => toggleSize(size)}
+              className={`px-3 py-1.5 rounded-md text-xs font-medium border transition-colors ${
+                selectedSizes.includes(size)
+                  ? "border-primary bg-primary/10 text-primary"
+                  : "border-border text-muted-foreground hover:border-foreground/30 hover:text-foreground"
+              }`}
+            >
+              {size}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Colors */}
+      <div>
+        <h3 className="text-sm font-semibold mb-3">Color</h3>
+        <div className="flex flex-wrap gap-2">
+          {allColors.map(({ name, hex }) => (
+            <button
+              key={name}
+              onClick={() => toggleColor(name)}
+              className={`group relative flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs border transition-colors ${
+                selectedColors.includes(name)
+                  ? "border-primary bg-primary/5"
+                  : "border-border hover:border-foreground/30"
+              }`}
+              title={name}
+            >
+              <span
+                className="h-3.5 w-3.5 rounded-full border border-border/50"
+                style={{ backgroundColor: hex }}
+              />
+              <span
+                className={`${
+                  selectedColors.includes(name)
+                    ? "text-foreground font-medium"
+                    : "text-muted-foreground"
+                }`}
+              >
+                {name}
+              </span>
+            </button>
+          ))}
         </div>
       </div>
     </div>
@@ -114,6 +240,11 @@ export default function ShopPage() {
           >
             <SlidersHorizontal className="h-4 w-4 mr-2" />
             Filters
+            {(selectedSizes.length > 0 || selectedColors.length > 0) && (
+              <span className="ml-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] text-primary-foreground">
+                {selectedSizes.length + selectedColors.length}
+              </span>
+            )}
           </Button>
 
           {/* Sort */}
@@ -132,14 +263,17 @@ export default function ShopPage() {
 
       <div className="flex gap-8">
         {/* Desktop Sidebar Filters */}
-        <aside className="hidden lg:block w-56 shrink-0">
+        <aside className="hidden lg:block w-60 shrink-0">
           <FiltersContent />
         </aside>
 
         {/* Mobile Filters Drawer */}
         {showFilters && (
           <div className="fixed inset-0 z-50 lg:hidden">
-            <div className="absolute inset-0 bg-black/50" onClick={() => setShowFilters(false)} />
+            <div
+              className="absolute inset-0 bg-black/50"
+              onClick={() => setShowFilters(false)}
+            />
             <div className="absolute left-0 top-0 bottom-0 w-72 bg-background p-6 shadow-xl overflow-y-auto">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="font-semibold">Filters</h2>
@@ -152,7 +286,7 @@ export default function ShopPage() {
           </div>
         )}
 
-        {/* Product Grid */}
+        {/* Product Grid + Pagination */}
         <div className="flex-1">
           {loading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -162,18 +296,78 @@ export default function ShopPage() {
             </div>
           ) : error ? (
             <div className="text-center py-16">
-              <p className="text-muted-foreground">Failed to load products. Please try again later.</p>
+              <p className="text-muted-foreground">
+                Failed to load products. Please try again later.
+              </p>
             </div>
-          ) : filtered.length === 0 ? (
+          ) : paginatedProducts.length === 0 ? (
             <div className="text-center py-16">
-              <p className="text-muted-foreground">No products found matching your criteria.</p>
+              <p className="text-muted-foreground">
+                No products found matching your criteria.
+              </p>
+              <Button
+                variant="outline"
+                className="mt-4"
+                onClick={() => {
+                  setSelectedCategory("All");
+                  setPriceRange([0, 300]);
+                  setSelectedSizes([]);
+                  setSelectedColors([]);
+                  setSortBy("newest");
+                }}
+              >
+                Clear All Filters
+              </Button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-              {filtered.map((product) => (
-                <ProductCard key={product._id} product={product} />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                {paginatedProducts.map((product) => (
+                  <ProductCard key={product._id} product={product} />
+                ))}
+              </div>
+
+              {/* Pagination */}
+              {totalPages > 1 && (
+                <div className="flex items-center justify-center gap-2 mt-10">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={currentPage <= 1}
+                    onClick={() =>
+                      setCurrentPage((p) => Math.max(1, p - 1))
+                    }
+                  >
+                    Previous
+                  </Button>
+                  <div className="flex items-center gap-1">
+                    {Array.from({ length: totalPages }).map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setCurrentPage(i + 1)}
+                        className={`h-8 w-8 rounded-md text-xs font-medium transition-colors ${
+                          currentPage === i + 1
+                            ? "bg-primary text-primary-foreground"
+                            : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                        }`}
+                      >
+                        {i + 1}
+                      </button>
+                    ))}
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={currentPage >= totalPages}
+                    onClick={() =>
+                      setCurrentPage((p) => Math.min(totalPages, p + 1))
+                    }
+                  >
+                    Next
+                  </Button>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>
