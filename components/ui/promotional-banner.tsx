@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 interface TimeLeft {
   days: number;
@@ -41,17 +40,25 @@ function TimerUnit({ value, label }: { value: number; label: string }) {
 }
 
 export function PromotionalBanner() {
-  const targetDate = new Date();
-  targetDate.setDate(targetDate.getDate() + 7); // 7 days from now
-
-  const [timeLeft, setTimeLeft] = useState<TimeLeft>(calculateTimeLeft(targetDate));
+  // Static initial value to match SSR + client hydration
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>({
+    days: 7,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
 
   useEffect(() => {
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + 7); // 7 days from now
+
+    setTimeLeft(calculateTimeLeft(targetDate));
+
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft(targetDate));
     }, 1000);
     return () => clearInterval(timer);
-  }, [targetDate]);
+  }, []);
 
   return (
     <section className="py-16 lg:py-20">
