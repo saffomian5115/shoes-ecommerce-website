@@ -85,23 +85,23 @@ Pura project **12 phases** mein divide hai. Ek phase complete karo, check kar lo
 
 ---
 
-## Phase 4 — Shop & Product Pages (3-4 din)
+## ✅ Phase 4 — Shop & Product Pages (3-4 din)
 
 **Goal:** Browsing aur product detail experience complete ho.
 
 **Shop Page (`/shop`):**
-- [ ] Sidebar filters (size, color, brand, price range slider)
-- [ ] Sort dropdown (price, newest, popularity)
-- [ ] Product grid with pagination/infinite scroll
-- [ ] Mobile filter drawer
+- [x] Sidebar filters (size, color, brand, price range slider)
+- [x] Sort dropdown (price, newest, popularity)
+- [x] Product grid with pagination/infinite scroll
+- [x] Mobile filter drawer
 
 **Product Detail Page (`/product/[slug]`):**
-- [ ] Image gallery with thumbnail switch + zoom
-- [ ] Size selector
-- [ ] Color variant selector
-- [ ] Add to cart button
-- [ ] Description + Reviews tabs
-- [ ] Related products section
+- [x] Image gallery with thumbnail switch + zoom
+- [x] Size selector
+- [x] Color variant selector
+- [x] Add to cart button
+- [x] Description + Reviews tabs
+- [x] Related products section
 
 **Done when:** Dummy data se filter, sort, aur product detail sab kaam karein.
 
