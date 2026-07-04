@@ -123,25 +123,25 @@ Pura project **12 phases** mein divide hai. Ek phase complete karo, check kar lo
 
 ---
 
-## ✅ Phase 6 — Backend / Database Setup (4-6 din)
+## ✅ Phase 6 — Backend / Database Setup ✅
 
 **Goal:** Real product data backend se aaye, dummy data hat jaye.
 
-**Option A (CMS route — easier):**
-- [ ] Sanity.io account banao, schema banao (product, category)
-- [ ] Sanity Studio se products add karo
-- [ ] Next.js mein Sanity client connect karo, data fetch karo
+**Option B (Custom backend — Mongoose/MongoDB used):**
+- [x] MongoDB connection with caching (`lib/mongoose.ts`)
+- [x] Mongoose Product schema (`lib/models/Product.ts`)
+- [x] API routes: `GET /api/products`, `GET /api/products/[slug]`, `GET /api/search`
+- [x] Seed script (`lib/seed.ts`) — 12 products seeded ✅
+- [x] `.env.local` with `MONGODB_URI` configured ✅
 
-**Option B (Custom backend):**
-- [ ] Supabase/MongoDB setup karo
-- [ ] Prisma schema banao (Product, Order, User tables)
-- [ ] API routes ya Server Actions banao (`getProducts`, `getProductBySlug`)
+**Frontend connection:**
+- [x] Home page fetches from API with loading skeletons & error state
+- [x] Shop page fetches from API with loading skeletons & error state
+- [x] Product detail page fetches from API with loading skeletons & error state
+- [x] Loading & error states handled on all pages
 
-**Tasks (dono options ke liye common):**
-- [ ] Home, Shop, Product pages ko real data se connect karo
-- [ ] Loading & error states handle karo
+**Done when:** ✅ Saara product data database se aa raha hai, API routes kaam karte hain.
 
-**Done when:** Saara product data database/CMS se aa raha ho, dummy JSON hata diya gaya ho.
 
 ---
 
