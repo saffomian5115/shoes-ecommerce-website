@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -213,10 +214,13 @@ export function AnimatedHero() {
             data-rot={card.rot}
             data-depth={card.depth}
           >
-            <img
+            <Image
               src={card.src}
               alt={`Shoe ${i + 1}`}
-              loading="lazy"
+              fill
+              sizes="(max-width: 750px) 130px, (max-width: 1100px) 175px, 230px"
+              className="object-cover"
+              priority={i < 3}
             />
           </Link>
         ))}

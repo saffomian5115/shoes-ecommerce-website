@@ -23,6 +23,44 @@ export interface CartItem {
   selectedColor: string;
 }
 
+export interface ShippingAddress {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  address: string;
+  apartment?: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  country: string;
+}
+
+export interface OrderItem {
+  productId: string;
+  name: string;
+  image: string;
+  price: number;
+  quantity: number;
+  selectedSize: string;
+  selectedColor: string;
+}
+
+export interface Order {
+  _id: string;
+  userId: string;
+  items: OrderItem[];
+  shippingAddress: ShippingAddress;
+  subtotal: number;
+  shippingCost: number;
+  tax: number;
+  total: number;
+  status: "pending" | "paid" | "processing" | "shipped" | "delivered" | "cancelled";
+  paymentIntentId?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export type Category = {
   name: string;
   slug: string;

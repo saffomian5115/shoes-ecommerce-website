@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "motion/react";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 
@@ -242,10 +243,12 @@ export function ProductShowcase({ items }: ProductShowcaseProps) {
                     href={`/shop/${item.slug}`}
                     className="relative block w-full h-full rounded-xl overflow-hidden shadow-lg group cursor-pointer"
                   >
-                    <img
+                    <Image
                       src={item.image}
                       alt={item.name}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      fill
+                      sizes="(max-width: 640px) 120px, 200px"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                       draggable={false}
                     />
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Search, X, Loader2, TrendingUp, ArrowRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -199,11 +200,13 @@ export function SearchBar() {
                   }}
                   className="flex items-center gap-3 rounded-lg px-2 py-2.5 transition-colors hover:bg-muted/50"
                 >
-                  <div className="h-10 w-10 shrink-0 rounded-md bg-muted overflow-hidden">
-                    <img
+                  <div className="h-10 w-10 shrink-0 rounded-md bg-muted overflow-hidden relative">
+                    <Image
                       src={product.images[0] || "/placeholder.svg"}
                       alt={product.name}
-                      className="h-full w-full object-cover"
+                      fill
+                      className="object-cover"
+                      sizes="40px"
                     />
                   </div>
                   <div className="flex-1 min-w-0">

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { brands, brandLinks } from "@/lib/placeholder-data";
 import { Star, Truck, RefreshCw, Check } from "lucide-react";
@@ -40,7 +41,7 @@ export function BrandShowcase() {
                   rel="noopener noreferrer"
                   className="flex-shrink-0 flex items-center justify-center h-16 w-28 md:w-32 grayscale hover:grayscale-0 transition-all duration-500 hover:scale-110"
                 >
-                  <img
+                  <Image
                     src={brand.logo}
                     alt={brand.name}
                     width={brand.width}

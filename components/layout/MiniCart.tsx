@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ShoppingBag, X, Trash2 } from "lucide-react";
 import { useCartStore } from "@/store/cart";
@@ -71,11 +72,13 @@ export function MiniCart() {
                     key={`${item.product._id}-${item.selectedSize}-${item.selectedColor}`}
                     className="flex items-center gap-3 rounded-lg px-2 py-2 transition-colors hover:bg-muted/50 group"
                   >
-                    <div className="h-12 w-12 shrink-0 rounded-md bg-muted overflow-hidden">
-                      <img
+                    <div className="h-12 w-12 shrink-0 rounded-md bg-muted overflow-hidden relative">
+                      <Image
                         src={item.product.images[0] || "/placeholder.svg"}
                         alt={item.product.name}
-                        className="h-full w-full object-cover"
+                        fill
+                        className="object-cover"
+                        sizes="48px"
                       />
                     </div>
                     <div className="flex-1 min-w-0">

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 import {
   ArrowRight,
@@ -35,6 +36,7 @@ import { testimonials, categories, categoryIcons } from "@/lib/placeholder-data"
 import { fetchProducts } from "@/lib/api";
 import type { Product } from "@/types";
 import { cn } from "@/lib/utils";
+import { ScrollReveal, StaggerContainer, StaggerItem } from "@/components/ui/scroll-reveal";
 
 // ─── Category Icon Mapper ───
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -129,6 +131,7 @@ export default function HomePage() {
       <AnimatedHero />
 
       {/* ─── 2. CATEGORY GRID ─── */}
+      <ScrollReveal>
       <section className="py-16 lg:py-20">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-10">
@@ -148,12 +151,12 @@ export default function HomePage() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <StaggerContainer className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {categories.map((cat) => {
               const catStyle = categoryIcons[cat.name] || { iconName: "Shirt", color: "#F8FAFC", hoverColor: "#64748B" };
               return (
+                <StaggerItem key={cat.name}>
                 <Link
-                  key={cat.name}
                   href={"/shop?category=" + cat.slug}
                   className="group relative flex flex-col items-center gap-3 rounded-xl border border-border/50 bg-card p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg overflow-hidden"
                   style={{ "--hover-color": catStyle.hoverColor } as React.CSSProperties}
@@ -181,9 +184,10 @@ export default function HomePage() {
                     <ArrowRight className="h-4 w-4 text-white" />
                   </div>
                 </Link>
+                </StaggerItem>
               );
             })}
-          </div>
+          </StaggerContainer>
 
           <div className="text-center mt-6 sm:hidden">
             <Button variant="outline" asChild>
@@ -192,8 +196,10 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      </ScrollReveal>
 
       {/* ─── 4. BEST SELLERS ─── */}
+      <ScrollReveal>
       <section className="py-16 lg:py-20 bg-muted/20 overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-10">
@@ -238,12 +244,17 @@ export default function HomePage() {
           )}
         </div>
       </section>
+      </ScrollReveal>
 
       {/* ─── 5. BRAND SHOWCASE ─── */}
+      <ScrollReveal>
       <BrandShowcase />
+      </ScrollReveal>
 
       {/* ─── 6. PROMOTIONAL BANNER ─── */}
+      <ScrollReveal>
       <PromotionalBanner />
+      </ScrollReveal>
 
       {/* ─── 3. NEW ARRIVALS FLOATING SCROLL ─── */}
       {loading ? (
@@ -281,6 +292,7 @@ export default function HomePage() {
       )}
 
       {/* ─── 7. CUSTOMER TESTIMONIALS ─── */}
+      <ScrollReveal>
       <section className="py-16 lg:py-20 bg-muted/20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">
@@ -326,10 +338,12 @@ export default function HomePage() {
                     {/* Author */}
                     <div className="flex items-center gap-3">
                       <div className="relative h-10 w-10 shrink-0 rounded-full overflow-hidden ring-2 ring-border/50">
-                        <img
+                        <Image
                           src={t.avatar}
                           alt={t.name}
-                          className="h-full w-full object-cover"
+                          fill
+                          className="object-cover"
+                          sizes="40px"
                         />
                       </div>
                       <div className="flex-1 min-w-0">
@@ -355,8 +369,10 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      </ScrollReveal>
 
       {/* ─── 8. NEWSLETTER ─── */}
+      <ScrollReveal>
       <section className="py-16 lg:py-20">
         <div className="container mx-auto px-4">
           <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-background border border-primary/20 p-8 md:p-12 text-center">
@@ -428,6 +444,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      </ScrollReveal>
     </>
   );
 }

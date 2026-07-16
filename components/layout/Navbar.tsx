@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import {
   ShoppingBag,
@@ -89,10 +90,12 @@ export function Navbar() {
                   {logoError ? (
                     <span className="text-xs font-bold">SC</span>
                   ) : (
-                    <img
+                    <Image
                       src="/logo.png"
                       alt="SM CO."
-                      className="h-7 w-7 object-contain"
+                      width={28}
+                      height={28}
+                      className="object-contain"
                       onError={() => setLogoError(true)}
                     />
                   )}

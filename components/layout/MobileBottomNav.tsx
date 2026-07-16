@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -257,11 +258,13 @@ export function MobileBottomNav() {
                       }}
                       className="flex items-center gap-3 rounded-lg px-2 py-3 transition-colors hover:bg-muted/50"
                     >
-                      <div className="h-14 w-14 shrink-0 rounded-md bg-muted overflow-hidden">
-                        <img
+                      <div className="h-14 w-14 shrink-0 rounded-md bg-muted overflow-hidden relative">
+                        <Image
                           src={product.images[0] || "/placeholder.svg"}
                           alt={product.name}
-                          className="h-full w-full object-cover"
+                          fill
+                          className="object-cover"
+                          sizes="56px"
                         />
                       </div>
                       <div className="flex-1 min-w-0">

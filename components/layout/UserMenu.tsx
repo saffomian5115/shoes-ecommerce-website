@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import {
   User,
@@ -15,12 +16,12 @@ import {
 import { Button } from "@/components/ui/button";
 
 export function UserMenu() {
+  const { data: session, status } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  // Simulated auth state — will be replaced with real auth later
-  const isLoggedIn = false;
-  const userName = "John";
+  const isLoggedIn = status === "authenticated";
+  const userName = session?.user?.name || "User";
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -31,6 +32,16 @@ export function UserMenu() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  // Loading state
+  if (status === "loading") {
+    return (
+      <div className="flex items-center gap-2 rounded-lg px-3 py-2">
+        <div className="h-7 w-7 animate-pulse rounded-full bg-muted" />
+        <div className="h-4 w-16 animate-pulse rounded bg-muted hidden lg:block" />
+      </div>
+    );
+  }
 
   return (
     <div ref={menuRef} className="relative">
@@ -57,9 +68,19 @@ export function UserMenu() {
             <div className="absolute top-full right-0 mt-1 w-56 rounded-xl border border-border/50 bg-popover p-1.5 shadow-lg ring-1 ring-foreground/5 z-50">
               <div className="px-3 py-2 border-b border-border/40 mb-1">
                 <p className="text-sm font-medium">{userName}</p>
-                <p className="text-xs text-muted-foreground">{userName}@email.com</p>
+                <p className="text-xs text-muted-foreground">
+                  {session?.user?.email}
+                </p>
               </div>
 
+              <Link
+                href="/account"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              >
+                <User className="h-4 w-4" />
+                My Account
+              </Link>
               <Link
                 href="/account/orders"
                 onClick={() => setIsOpen(false)}
@@ -87,7 +108,10 @@ export function UserMenu() {
 
               <div className="border-t border-border/40 mt-1 pt-1">
                 <button
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    setIsOpen(false);
+                    signOut({ callbackUrl: "/" });
+                  }}
                   className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-destructive"
                 >
                   <LogOut className="h-4 w-4" />

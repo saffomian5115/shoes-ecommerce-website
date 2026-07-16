@@ -676,10 +676,12 @@ export default function ProductDetailPage() {
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center gap-3">
                       <div className="relative h-10 w-10 rounded-full overflow-hidden">
-                        <img
+                        <Image
                           src={review.avatar}
                           alt={review.name}
-                          className="h-full w-full object-cover"
+                          fill
+                          className="object-cover"
+                          sizes="40px"
                         />
                       </div>
                       <div>

@@ -2,7 +2,9 @@
 
 export function ProductSkeleton() {
   return (
-    <div className="flex flex-col overflow-hidden rounded-lg border border-border/50 bg-card animate-pulse">
+    <div className="flex flex-col overflow-hidden rounded-lg border border-border/50 bg-card animate-pulse relative">
+      {/* Shimmer overlay */}
+      <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/10 to-transparent z-10" />
       <div className="aspect-square bg-muted" />
       <div className="p-4 space-y-3">
         <div className="h-3 w-16 rounded bg-muted" />
@@ -30,7 +32,9 @@ export function ProductGridSkeleton({ count = 8 }: { count?: number }) {
 
 export function HeroSkeleton() {
   return (
-    <div className="relative h-[70vh] min-h-[500px] bg-muted animate-pulse">
+    <div className="relative h-[70vh] min-h-[500px] bg-muted animate-pulse overflow-hidden">
+      {/* Shimmer overlay */}
+      <div className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/10 to-transparent z-10" />
       <div className="container mx-auto px-4 h-full flex items-center">
         <div className="space-y-6 max-w-lg">
           <div className="h-5 w-24 rounded bg-muted-foreground/20" />

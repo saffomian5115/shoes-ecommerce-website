@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { SlidersHorizontal, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/product/ProductCard";
 import { ProductSkeleton } from "@/components/product/ProductSkeleton";
+import { FadeIn } from "@/components/ui/scroll-reveal";
 import { fetchProducts } from "@/lib/api";
 import type { Product } from "@/types";
 
@@ -261,30 +263,51 @@ export default function ShopPage() {
         </div>
       </div>
 
-      <div className="flex gap-8">
+      <FadeIn>
+        <div className="flex gap-8">
         {/* Desktop Sidebar Filters */}
         <aside className="hidden lg:block w-60 shrink-0">
           <FiltersContent />
         </aside>
 
-        {/* Mobile Filters Drawer */}
-        {showFilters && (
-          <div className="fixed inset-0 z-50 lg:hidden">
-            <div
-              className="absolute inset-0 bg-black/50"
-              onClick={() => setShowFilters(false)}
-            />
-            <div className="absolute left-0 top-0 bottom-0 w-72 bg-background p-6 shadow-xl overflow-y-auto">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="font-semibold">Filters</h2>
-                <button onClick={() => setShowFilters(false)}>
-                  <X className="h-5 w-5" />
-                </button>
-              </div>
-              <FiltersContent />
-            </div>
-          </div>
-        )}
+        {/* Mobile Filters Drawer with slide animation */}
+        <AnimatePresence>
+          {showFilters && (
+            <motion.div
+              className="fixed inset-0 z-50 lg:hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <motion.div
+                className="absolute inset-0 bg-black/50"
+                onClick={() => setShowFilters(false)}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              />
+              <motion.div
+                className="absolute left-0 top-0 bottom-0 w-72 bg-background p-6 shadow-xl overflow-y-auto"
+                initial={{ x: -320 }}
+                animate={{ x: 0 }}
+                exit={{ x: -320 }}
+                transition={{ type: "spring", bounce: 0.1, duration: 0.35 }}
+              >
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="font-semibold">Filters</h2>
+                  <motion.button
+                    onClick={() => setShowFilters(false)}
+                    whileTap={{ scale: 0.85 }}
+                  >
+                    <X className="h-5 w-5" />
+                  </motion.button>
+                </div>
+                <FiltersContent />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Product Grid + Pagination */}
         <div className="flex-1">
@@ -370,7 +393,8 @@ export default function ShopPage() {
             </>
           )}
         </div>
-      </div>
+        </div>
+      </FadeIn>
     </div>
   );
 }
